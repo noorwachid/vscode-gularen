@@ -1,0 +1,285 @@
+const document = {
+    name: 'Gularen',
+    scopeName: 'source.gularen',
+    patterns: [
+        {
+            include: '#block'
+        }
+    ],
+    repository: {
+        block: {
+            patterns: [
+                {
+                    include: '#heading'
+                },
+                {
+                    include: '#blockquote'
+                },
+                {
+                    include: '#admon'
+                },
+                {
+                    include: '#list'
+                },
+                {
+                    include: '#code'
+                },
+                {
+                    include: '#paragraph'
+                },
+                {
+                    include: '#thematic_break'
+                }
+            ]
+        },
+        heading: {
+            name: 'markup.heading.gularen',
+            match: '^\\s*(>{1,3}) .*$'
+        },
+        blockquote: {
+            name: 'markup.quote.markdown',
+            begin: '^\\s*(/) ',
+            while: '^\\s*(/) ',
+            captures: {
+                '1': { name: 'punctuation.definition.quote.begin.gularen' }
+            }
+        },
+        admon: {
+            name: 'entity.name.function.gularen',
+            match: '^\\s*<(tip|note|hint|seealso|important|warning)>'
+        },
+        paragraph: {
+            name: 'meta.paragraph.gularen',
+            begin: '^\\s*[A-Za-z0-9]',
+            while: '^\\s*[A-Za-z0-9]',
+            patterns: [
+                {
+                    include: '#inline'
+                }
+            ]
+        },
+        list: {
+            patterns: [
+                {
+                    name: 'punctuation.definition.list.begin.markdown',
+                    match: '^\\s*- '
+                },
+                {
+                    name: 'punctuation.definition.list.begin.markdown',
+                    match: '^\\s*[0-9]+\\. '
+                },
+                {
+                    match: '^\\s*\\[(v)\\] ',
+                    captures: { '1': { name: 'markup.inserted.diff' } }
+                },
+                {
+                    match: '^\\s*\\[(x)\\] ',
+                    captures: { '1': { name: 'markup.deleted.diff' } }
+                }
+            ]
+        },
+        code: {
+            patterns: []
+        },
+        codeUnknown: {
+            name: 'markup.fenced_code.block.gularen',
+            begin: '^(\\s*)(-{3,})( ([a-z0-9]+))?$',
+            beginCaptures: {
+                '2': {
+                    name: 'punctuation.definition.markdown'
+                },
+                '4': {
+                    name: 'fenced_code.block.language'
+                }
+            },
+            end: '^(\\1)(\\2)$',
+            endCaptures: {
+                '2': {
+                    name: 'punctuation.definition.markdown'
+                }
+            }
+        },
+        thematicBreak: {
+            name: 'markup.deleted.diff',
+            match: '^\\s*\\*{3}$'
+        },
+
+        inline: {
+            patterns: [
+                {
+                    include: '#comment'
+                },
+                {
+                    include: '#bold'
+                },
+                {
+                    include: '#italic'
+                },
+                {
+                    include: '#monospace'
+                },
+                {
+                    include: '#inlineCode'
+                },
+                {
+                    include: '#datetime'
+                },
+                {
+                    include: '#break'
+                },
+                {
+                    include: '#reference'
+                }
+            ]
+        },
+
+        comment: {
+            name: 'comment.inline.gularen',
+            match: '~.*$'
+        },
+        bold: {
+            name: 'markup.bold.gularen',
+            begin: '\\*',
+            end: '\\*',
+            patterns: [
+                {
+                    include: '#italic'
+                },
+                {
+                    include: '#monospace'
+                }
+            ]
+        },
+        italic: {
+            name: 'markup.italic.gularen',
+            begin: '_',
+            end: '_',
+            patterns: [
+                {
+                    include: '#bold'
+                },
+                {
+                    include: '#monospace'
+                }
+            ]
+        },
+        monospace: {
+            name: 'markup.inline.raw.string.gularen',
+            begin: '`',
+            end: '`',
+            patterns: [
+                {
+                    include: '#bold'
+                },
+                {
+                    include: '#italic'
+                }
+            ]
+        },
+
+        inlineCode: {
+            name: 'markup.inline.raw.string.gularen',
+            begin: '{',
+            end: '}'
+        },
+        break: {
+            name: 'markup.deleted.diff',
+            match: '<{1,3}'
+        },
+
+        datetime: {
+            name: 'variable.other.readwrite.gularen',
+            match: '<\\d{4}-\\d{2}-\\d{2}( \\d{2}:\\d{2}(:\\d{2})?)?>'
+        },
+
+        reference: {
+            name: 'meta.link.inline.gularen',
+            match: '\\[([^\\]]*)\\](?:\\(([^\\)]*)\\))?',
+            captures: {
+                '1': { name: 'markup.underline.link.gularen' },
+                '2': { name: 'string.other.link.title.markdown' }
+            }
+        }
+    }
+};
+
+function addCode(id, alias = [], source = null) {
+    const link = `code_${id}`;
+    const pattern = [id, ...alias].join('|');
+    const include = source ?? `source.${id}`;
+
+    document.repository[link] = {
+        name: 'markup.fenced_code.block.gularen',
+        begin: `^(\\s*)(-{3,}) (${pattern})$`,
+        beginCaptures: {
+            '2': { name: 'punctuation.definition.markdown' },
+            '4': { name: 'fenced_code.block.language' }
+        },
+        end: '^(\\1)(\\2)$',
+        endCaptures: {
+            '2': {
+                name: 'punctuation.definition.markdown'
+            }
+        },
+        patterns: [
+            {
+                begin: '^(?!\\s*-{3,}$)',
+                while: '^(?!\\s*-{3,}$)',
+                contentName: `meta.embedded.block.${id}`,
+                patterns: [
+                    {
+                        include: include,
+                    }
+                ]
+            }
+        ]
+    };
+    document.repository.code.patterns.push({
+        include: `#${link}`
+    })
+}
+
+addCode('c');
+addCode('clojure');
+addCode('coffee');
+addCode('cpp');
+addCode('csharp');
+addCode('css');
+addCode('diff');
+addCode('dockerfile');
+addCode('dosbatch');
+addCode('fsharp');
+addCode('go');
+addCode('groovy');
+addCode('ini');
+addCode('java');
+addCode('js');
+addCode('jsx')
+addCode('json');
+addCode('jsonc');
+addCode('latex', ['tex'], 'text.tex.latex');
+addCode('less');
+addCode('lua');
+addCode('makefile');
+addCode('mermaid');
+addCode('objc');
+addCode('perl');
+addCode('php');
+addCode('python');
+addCode('r');
+addCode('ruby');
+addCode('rust', ['rs']);
+addCode('scala');
+addCode('scss');
+addCode('sh');
+addCode('sql');
+addCode('ts');
+addCode('tsx');
+addCode('xml', [], 'text.html');
+addCode('yaml');
+
+document.repository.code.patterns.push({
+    include: '#codeUnknown'
+})
+
+console.log(JSON.stringify(document));
