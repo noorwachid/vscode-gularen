@@ -34,12 +34,42 @@ const document = {
         },
         heading: {
             name: 'markup.heading.gularen',
-            match: '^\\s*(>{1,3}) .*$'
+            match: '^\\s*>{1,3} .*$',
+            captures: {
+                '0': { 
+                    patterns: [
+                        {
+                            name: 'heading.1.gularen',
+                            match: '^\\s*(>{3}) (.*)$',
+                            captures: {
+                                '1': { name: 'punctuation.definition.heading.gularen' },
+                                '2': { name: 'entity.name.section.gularen' }
+                            }
+                        },
+                        {
+                            name: 'heading.2.gularen',
+                            match: '^\\s*(>{2}) (.*)$',
+                            captures: {
+                                '1': { name: 'punctuation.definition.heading.gularen' },
+                                '2': { name: 'entity.name.section.gularen' }
+                            }
+                        },
+                        {
+                            name: 'heading.3.gularen',
+                            match: '^\\s*(>{1}) (.*)$',
+                            captures: {
+                                '1': { name: 'punctuation.definition.heading.gularen' },
+                                '2': { name: 'entity.name.section.gularen' }
+                            }
+                        }
+                    ]
+                }
+            }
         },
         blockquote: {
-            name: 'markup.quote.markdown',
-            begin: '^\\s*(/) ',
-            while: '^\\s*(/) ',
+            name: 'markup.quote.gularen',
+            begin: '^\\s*(/ )',
+            while: '^\\s*(/ )',
             captures: {
                 '1': { name: 'punctuation.definition.quote.begin.gularen' }
             }
@@ -86,7 +116,7 @@ const document = {
             begin: '^(\\s*)(-{3,})( ([a-z0-9]+))?$',
             beginCaptures: {
                 '2': {
-                    name: 'punctuation.definition.markdown'
+                    name: 'punctuation.definition.gularen'
                 },
                 '4': {
                     name: 'fenced_code.block.language'
@@ -95,7 +125,7 @@ const document = {
             end: '^(\\1)(\\2)$',
             endCaptures: {
                 '2': {
-                    name: 'punctuation.definition.markdown'
+                    name: 'punctuation.definition.gularen'
                 }
             }
         },
@@ -197,7 +227,7 @@ const document = {
             match: '\\[([^\\]]*)\\](?:\\(([^\\)]*)\\))?',
             captures: {
                 '1': { name: 'markup.underline.link.gularen' },
-                '2': { name: 'string.other.link.title.markdown' }
+                '2': { name: 'string.other.link.title.gularen' }
             }
         }
     }
@@ -212,13 +242,13 @@ function addCode(id, alias = [], source = null) {
         name: 'markup.fenced_code.block.gularen',
         begin: `^(\\s*)(-{3,}) (${pattern})$`,
         beginCaptures: {
-            '2': { name: 'punctuation.definition.markdown' },
+            '2': { name: 'punctuation.definition.gularen' },
             '4': { name: 'fenced_code.block.language' }
         },
         end: '^(\\1)(\\2)$',
         endCaptures: {
             '2': {
-                name: 'punctuation.definition.markdown'
+                name: 'punctuation.definition.gularen'
             }
         },
         patterns: [

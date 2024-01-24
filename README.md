@@ -1,2 +1,4 @@
-# Gularen Markup Language
-Gularen markup language for VS Code
+# Gularen
+Gularen markup language support for VS Code
+
+![screenshot](assets/screenshot.png)
