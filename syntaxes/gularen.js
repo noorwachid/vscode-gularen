@@ -76,7 +76,7 @@ const document = {
         },
         admon: {
             name: 'entity.name.function.gularen',
-            match: '^\\s*<(tip|note|hint|seealso|important|warning)>'
+            match: '^\\s*<[A-Za-z][^>]*`>'
         },
         paragraph: {
             name: 'meta.paragraph.gularen',
