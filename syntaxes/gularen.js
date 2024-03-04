@@ -113,7 +113,7 @@ const document = {
         },
         codeUnknown: {
             name: 'markup.fenced_code.block.gularen',
-            begin: '^(\\s*)(-{3,})( ([a-z0-9-_]+))?$',
+            begin: '^(\\s*)(-{3,})( ([a-z0-9-_ ]+))?$',
             beginCaptures: {
                 '2': {
                     name: 'punctuation.definition.gularen'
