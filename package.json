@@ -31,6 +31,29 @@
         "scopeName": "source.gularen",
         "path": "./syntaxes/gularen.tmLanguage.json"
       }
-    ]
+    ],
+    "commands": [{
+      "command": "gularen.preview",
+      "title": "Preview"
+    }],
+    "menus": {
+      "editor/title": [
+        {
+          "when": "resourceLangId == gularen",
+          "command": "gularen.preview",
+          "group": "navigation"
+        }
+      ]
+    }
+  },
+  "main": "./extension.js",
+  "devDependencies": {
+    "@types/vscode": "^1.87.0",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "18.x",
+    "eslint": "^8.56.0",
+    "typescript": "^5.3.3",
+    "@vscode/test-cli": "^0.0.4",
+    "@vscode/test-electron": "^2.3.8"
   }
 }
