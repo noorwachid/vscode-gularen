@@ -22,6 +22,7 @@ body {
 }
 
 blockquote {
+	background: none;
 	padding-left: 2rem;
 }
 
