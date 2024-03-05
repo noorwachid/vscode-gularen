@@ -46,6 +46,48 @@
           "group": "navigation"
         }
       ]
+    },
+    "configuration": {
+      "type": "object",
+      "title": "Gularen",
+      "properties": {
+        "gularen.enableCodeLens": {
+          "scope": "resource",
+          "type": "boolean",
+          "default": true,
+          "description": "Enables code lens for Gularen"
+        },
+        "gularen.codeBlocks": {
+          "scope": "resource",
+          "type": "object",
+          "default": {
+            "javascript": {
+              "aka": ["js"],
+              "runner": {
+                "command": ["node"]
+              }
+            },
+            "python": {
+              "aka": ["py"],
+              "runner": {
+                "command": ["python3"]
+              }
+            },
+            "sh": {
+              "aka": ["bash", "zsh"],
+              "runner": {
+                "command": ["sh"]
+              }
+            },
+            "php": {
+              "runner": {
+                "command": ["php"]
+              }
+            }
+          },
+          "description": "Code blocks"
+        }
+      }
     }
   },
   "main": "./extension.js",

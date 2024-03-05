@@ -1,15 +1,8 @@
 const vscode = require('vscode');
 const cp = require('child_process');
 
-const runners = {
-    js: {
-        command: ['node'],
-    },
-    'esoftplay-request': {
-        out: 'esoftplay-response',
-        command: ['esoftplay-resolver'],
-    },
-};
+let config = {};
+let runners = {};
 
 function spawn(command, input, outputCallback) {
     try {
@@ -126,11 +119,15 @@ function resolve(document, languageId, inputLines, inputEndLine, inputEndColumn,
 
 class Provider {
     async provideCodeLenses(document) {
+        if (!config.enableCodeLens) {
+            return;
+        }
+
         const lenses = [];
 
         for (let i = 0; i < document.lineCount; i++) {
             const line = document.lineAt(i).b.substr(0, 50);
-            const matches = /^\s*--- ([a-zA-Z0-9-]+)$/.exec(line);
+            const matches = /^\s*--- ([a-zA-Z0-9-_]+[a-zA-Z0-9-_ ]+)$/.exec(line);
 
             if (matches) {
                 const languageId = matches[1];
@@ -155,6 +152,23 @@ function register(context) {
         language: "gularen",
         scheme: "file"
     };
+
+    config = vscode.workspace.getConfiguration('gularen');
+
+    for (const key in config.codeBlocks) {
+        const codeBlock = config.codeBlocks[key];
+        if (codeBlock.runner === undefined || codeBlock.runner.command === undefined) {
+            throw "Invalid code block configuration";
+        }
+
+        runners[key] = codeBlock.runner;
+
+        if (codeBlock.aka !== undefined) {
+            for (let j = 0 ; j < codeBlock.aka.length; j++) {
+                runners[codeBlock.aka[j]] = codeBlock.runner;
+            }
+        }
+    }
 
     context.subscriptions.push(vscode.languages.registerCodeLensProvider(selector, new Provider));
 

@@ -240,7 +240,7 @@ function addCode(id, alias = [], source = null) {
 
     document.repository[link] = {
         name: 'markup.fenced_code.block.gularen',
-        begin: `^(\\s*)(-{3,}) (${pattern})$`,
+        begin: `^(\\s*)(-{3,}) (${pattern})($| [a-zA-Z0-9-_ ]+$)`,
         beginCaptures: {
             '2': { name: 'punctuation.definition.gularen' },
             '4': { name: 'fenced_code.block.language' }
@@ -301,7 +301,7 @@ addCode('ruby');
 addCode('rust', ['rs']);
 addCode('scala');
 addCode('scss');
-addCode('sh');
+addCode('sh', ['bash', 'zsh']);
 addCode('sql');
 addCode('ts');
 addCode('tsx');
