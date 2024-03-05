@@ -2,7 +2,7 @@
   "name": "gularen",
   "displayName": "Gularen",
   "description": "Gularen markup language support for VS Code",
-  "version": "0.4.0",
+  "version": "1.0.0",
   "publisher": "nwachid",
   "engines": {
     "vscode": "^1.85.0"
@@ -62,26 +62,41 @@
           "type": "object",
           "default": {
             "javascript": {
-              "aka": ["js"],
+              "aka": [
+                "js"
+              ],
               "runner": {
-                "command": ["node"]
+                "command": [
+                  "node"
+                ]
               }
             },
             "python": {
-              "aka": ["py"],
+              "aka": [
+                "py"
+              ],
               "runner": {
-                "command": ["python3"]
+                "command": [
+                  "python3"
+                ]
               }
             },
             "sh": {
-              "aka": ["bash", "zsh"],
+              "aka": [
+                "bash",
+                "zsh"
+              ],
               "runner": {
-                "command": ["sh"]
+                "command": [
+                  "sh"
+                ]
               }
             },
             "php": {
               "runner": {
-                "command": ["php"]
+                "command": [
+                  "php"
+                ]
               }
             }
           },
