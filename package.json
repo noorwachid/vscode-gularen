@@ -2,7 +2,7 @@
   "name": "gularen",
   "displayName": "Gularen",
   "description": "Gularen markup language support for VS Code",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "publisher": "nwachid",
   "engines": {
     "vscode": "^1.85.0"
