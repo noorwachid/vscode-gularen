@@ -55,13 +55,6 @@ function preview(context) {
 					composed: false
 				}));
 				window.gularen.transpiled = true;
-
-				htmlRoot.querySelectorAll('time').forEach(timeNode => {
-					const dateTime = timeNode.getAttribute('datetime');
-					if (dateTime) {
-						timeNode.textContent = (new Date(dateTime)).toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'});
-					}
-				});
 			}
 
 			Module.onRuntimeInitialized = () => {
@@ -114,6 +107,21 @@ function preview(context) {
 			addEventListener('gularentranspile', parseKatex);
 			if (gularen.transpiled) {
 				parseKatex();
+			}
+		</script>
+
+		<script src="${toWebPath('library/emoji/script.js')}"></script>
+		<script>
+			function parseEmoji() {
+				document.querySelectorAll('.emoji').forEach(node => {
+					if (Emoji.database.hasOwnProperty(node.textContent)) {
+						node.textContent = Emoji.database[node.textContent];
+					}
+				});
+			}
+			addEventListener('gularentranspile', parseEmoji);
+			if (gularen.transpiled) {
+				parseEmoji();
 			}
 		</script>
 	`;
