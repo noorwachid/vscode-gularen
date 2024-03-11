@@ -1,4 +1,5 @@
 const vscode = require('vscode');
+let panel = null;
 
 function register(context) {
     const disposable = vscode.commands.registerCommand('gularen.preview', function () {
@@ -9,13 +10,22 @@ function register(context) {
 }
 
 function preview(context) {
-    const panel = vscode.window.createWebviewPanel(
+	if (!vscode.window.activeTextEditor) {
+		return;
+	}
+
+	if (panel) {
+		panel.reveal(vscode.ViewColumn.Active);
+		return;
+	}
+
+    panel = vscode.window.createWebviewPanel(
         // Webview id
-        'GularenPreview',
+        `gularenPreview`,
         // Webview title
         'Preview',
         // This will open the second column for preview inside editor
-        2,
+        vscode.ViewColumn.Two,
         {
             // Enable scripts in the webview
             enableScripts: true,
@@ -24,11 +34,7 @@ function preview(context) {
         }
     );
 
-	let sourceCode = '';
-
-	if (vscode.window.activeTextEditor) {
-		sourceCode = vscode.window.activeTextEditor.document.getText();
-	}
+	const sourceCode = vscode.window.activeTextEditor.document.getText();
 
 	const toWebPath = (path) => {
 		const diskPath = vscode.Uri.joinPath(context.extensionUri, 'assets', path);
@@ -46,9 +52,10 @@ function preview(context) {
 		<script>
 			window.gularen = {}
 			window.gularen.transpiled = false;
+			window.gularen.source = ${JSON.stringify(sourceCode)};
 
 			function transpile() {
-				htmlRoot.innerHTML = Module.transpile(${JSON.stringify(sourceCode)});
+				htmlRoot.innerHTML = Module.transpile(window.gularen.source);
 				dispatchEvent(new Event('gularentranspile', {
 					bubbles: true,
 					cancelable: true,
@@ -61,6 +68,11 @@ function preview(context) {
 				htmlRoot.innerHTML = 'Awesome';
 				transpile();
 			};
+
+			window.addEventListener('message', (e) => {
+				window.gularen.source = e.data.content;
+				transpile();
+			});
 		</script>
 
 
@@ -125,6 +137,37 @@ function preview(context) {
 			}
 		</script>
 	`;
+
+	let changeEditorDisposable = vscode.window.onDidChangeActiveTextEditor(event => {
+        if (event) {
+			const fileExtension = event.document.uri.toString().split('.').pop();
+			if (fileExtension == 'gr' || fileExtension == 'gularen') {
+				panel.webview.postMessage({
+					type: 'SOURCE',
+					content: event.document.getText(),
+				});
+			}
+        }
+    });
+
+	let changeContentDisposable = vscode.workspace.onDidChangeTextDocument(event => {
+		const fileExtension = event.document.uri.toString().split('.').pop();
+		if (fileExtension == 'gr' || fileExtension == 'gularen') {
+			panel.webview.postMessage({
+				type: 'SOURCE',
+				content: event.document.getText(),
+			});
+		}
+	});
+
+	context.subscriptions.push(changeEditorDisposable);
+	context.subscriptions.push(changeContentDisposable);
+
+	panel.onDidDispose(() => {
+		changeEditorDisposable.dispose();
+		changeContentDisposable.dispose();
+		panel = null;
+	});
 }
 
 module.exports = {
