@@ -4,6 +4,7 @@
   "description": "Gularen markup language support for VS Code",
   "version": "1.6.0",
   "publisher": "nwachid",
+  "repository": "https://github.com/noorwachid/vscode-gularen",
   "engines": {
     "vscode": "^1.85.0"
   },
