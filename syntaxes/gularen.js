@@ -76,12 +76,12 @@ const document = {
         },
         admon: {
             name: 'entity.name.function.gularen',
-            match: '^\\s*<[A-Za-z][^>]*`>'
+            match: '^\\s*<[A-Za-z][^>]+>'
         },
         paragraph: {
             name: 'meta.paragraph.gularen',
-            begin: '^\\s*[A-Za-z0-9]',
-            while: '^\\s*[A-Za-z0-9]',
+            begin: '^\\s*[A-Za-z0-9\\*_`=~\\^]',
+            while: '^\\s*[A-Za-z0-9\\*_`=~\\^]',
             patterns: [
                 {
                     include: '#inline'
@@ -99,13 +99,9 @@ const document = {
                     match: '^\\s*[0-9]+\\. '
                 },
                 {
-                    match: '^\\s*\\[(v)\\] ',
+                    match: '^\\s*\\[(x)\\] ',
                     captures: { '1': { name: 'markup.inserted.diff' } }
                 },
-                {
-                    match: '^\\s*\\[(x)\\] ',
-                    captures: { '1': { name: 'markup.deleted.diff' } }
-                }
             ]
         },
         code: {
@@ -146,7 +142,7 @@ const document = {
                     include: '#italic'
                 },
                 {
-                    include: '#monospace'
+                    include: '#highlight'
                 },
                 {
                     include: '#inlineCode'
@@ -176,7 +172,7 @@ const document = {
                     include: '#italic'
                 },
                 {
-                    include: '#monospace'
+                    include: '#highlight'
                 }
             ]
         },
@@ -189,14 +185,14 @@ const document = {
                     include: '#bold'
                 },
                 {
-                    include: '#monospace'
+                    include: '#highlight'
                 }
             ]
         },
-        monospace: {
-            name: 'markup.inline.raw.string.gularen',
-            begin: '`',
-            end: '`',
+        highlight: {
+            name: 'markup.inline.highlight',
+            begin: '=',
+            end: '=',
             patterns: [
                 {
                     include: '#bold'
@@ -209,8 +205,8 @@ const document = {
 
         inlineCode: {
             name: 'markup.inline.raw.string.gularen',
-            begin: '{',
-            end: '}'
+            begin: '`',
+            end: '`'
         },
         break: {
             name: 'markup.deleted.diff',
