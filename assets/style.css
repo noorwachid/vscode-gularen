@@ -38,7 +38,7 @@ blockquote *:last-child {
 }
 
 code {
-	font-style: monospace;
+	font-family: monospace;
 	background-color: #282c34;
 	color: #efefef;
 	border-radius: .4rem;
