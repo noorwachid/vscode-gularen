@@ -10,6 +10,9 @@ const document = {
         block: {
             patterns: [
                 {
+                    include: '#blockcomment'
+                },
+                {
                     include: '#heading'
                 },
                 {
@@ -29,7 +32,7 @@ const document = {
                 },
                 {
                     include: '#thematic_break'
-                }
+                },
             ]
         },
         heading: {
@@ -128,6 +131,10 @@ const document = {
         thematicBreak: {
             name: 'markup.deleted.diff',
             match: '^\\s*\\*{3}$'
+        },
+        blockcomment: {
+            name: 'comment.inline.gularen',
+            match: '^~.*$'
         },
 
         inline: {
