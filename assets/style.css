@@ -22,7 +22,6 @@ body {
 }
 
 blockquote {
-	background: none;
 	padding-left: 2rem;
 }
 
@@ -38,7 +37,6 @@ blockquote *:last-child {
 }
 
 code {
-	font-family: monospace;
 	background-color: #282c34;
 	color: #efefef;
 	border-radius: .4rem;
@@ -325,15 +323,14 @@ img {
 	border-left: 2px solid #49af90;
 }
 
-.admon::before {
-	content: attr(data-label);
+.admon>.label {
 	font-weight: bold;
 	display: block;
 	margin-bottom: 1.0;
 	color: #59bfa0;
 }
 
-.admon.note::before {
+.admon.note>.label {
 	color: #59a0ff;
 }
 
@@ -341,7 +338,7 @@ img {
 	border-left: 2px solid #4990ef;
 }
 
-.admon.hint::before {
+.admon.hint>.label {
 	color: #8059ff;
 }
 
@@ -349,7 +346,7 @@ img {
 	border-left: 2px solid #6049ef;
 }
 
-.admon.important::before {
+.admon.important>.label {
 	color: #ff4444;
 }
 
@@ -357,7 +354,7 @@ img {
 	border-left: 2px solid #ef4949;
 }
 
-.admon.warning::before {
+.admon.warning>.label {
 	color: #dfbf33;
 }
 
@@ -365,7 +362,7 @@ img {
 	border-left: 2px solid #cfaf22;
 }
 
-.admon.see-also::before {
+.admon.see-also>.label {
 	color: #ff3980;
 }
 
@@ -373,7 +370,7 @@ img {
 	border-left: 2px solid #ef2990;
 }
 
-.admon.tip::before {
+.admon.tip>.label {
 	color: #59dd59;
 }
 
@@ -412,6 +409,14 @@ ul.todo>li>input[type=checkbox] {
 	margin-right: 4px;
 }
 
+.footnote-desc {
+	margin-bottom: 1.2rem;
+}
+.footnote-desc>p {
+	font-size: 80%;
+	margin-bottom: 0;
+}
+
 pre code.hljs {
 	display: block;
 }
@@ -421,7 +426,6 @@ code.hljs {
 }
 
 article {
-	max-width: 800px;
 	padding: 10px 10px;
 	margin: 0 auto;
 }
