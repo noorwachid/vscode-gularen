@@ -221,7 +221,7 @@ table,
 ul,
 blockquote,
 .admon,
-.language-presenter {
+.reference {
 	margin-bottom: 1.2rem;
 }
 
@@ -391,12 +391,12 @@ td.cell-right {
 	text-align: right;
 }
 
-ul.todo {
+ul.check-list {
 	padding-left: 1rem;
 	list-style: none;
 }
 
-ul.todo ul.todo {
+ul.check-list ul.check-list {
 	padding-left: 3.2rem;
 }
 
@@ -426,6 +426,7 @@ code.hljs {
 }
 
 article {
+	max-width: 800px;
 	padding: 10px 10px;
 	margin: 0 auto;
 }
