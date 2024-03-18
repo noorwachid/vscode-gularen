@@ -82,7 +82,7 @@ function preview(context) {
 				document.querySelectorAll('code').forEach(el => {
 					for (let i = 0; i < el.classList.length; i += 1) {
 						const className = el.classList[i];
-						if (className == 'language-latex' || className == 'language-mermaid') {
+						if (className == 'language-math' || className == 'language-mermaid') {
 							return; // dont highlight this two
 						}
 					}
