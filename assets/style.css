@@ -42,6 +42,7 @@ code {
 	color: #efefef;
 	border-radius: .4rem;
 	font-size: 86%;
+	font-family: monospace;
 	margin: 0 .2rem;
 	padding: .2rem .5rem;
 	white-space: nowrap;
