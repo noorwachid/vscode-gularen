@@ -112,7 +112,7 @@ function preview(context) {
 		<script src="${toWebPath('library/math/script.js')}"></script>
 		<script>
 			function parseKatex() {
-				document.querySelectorAll('.language-latex').forEach(node => {
+				document.querySelectorAll('.language-math').forEach(node => {
 					katex.render(node.innerHTML, node);
 				})
 			}

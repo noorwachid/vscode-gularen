@@ -22,6 +22,7 @@ body {
 }
 
 blockquote {
+	background: #171717;
 	padding-left: 2rem;
 }
 
@@ -194,6 +195,10 @@ ul ul {
   padding-left: 3.2rem;
   margin-top: 0.4rem;
   margin-bottom: 0.4rem;
+}
+
+dt {
+	margin-left: -3.2rem;
 }
 
 .button,
