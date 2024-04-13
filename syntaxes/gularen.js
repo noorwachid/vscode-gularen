@@ -16,9 +16,6 @@ const document = {
                     include: '#heading'
                 },
                 {
-                    include: '#blockquote'
-                },
-                {
                     include: '#admon'
                 },
                 {
@@ -29,9 +26,6 @@ const document = {
                 },
                 {
                     include: '#paragraph'
-                },
-                {
-                    include: '#thematic_break'
                 },
             ]
         },
@@ -69,22 +63,14 @@ const document = {
                 }
             }
         },
-        blockquote: {
-            name: 'markup.quote.gularen',
-            begin: '^\\s*(/ )',
-            while: '^\\s*(/ )',
-            captures: {
-                '1': { name: 'punctuation.definition.quote.begin.gularen' }
-            }
-        },
         admon: {
             name: 'entity.name.function.gularen',
             match: '^\\s*<[A-Za-z][^>]+>'
         },
         paragraph: {
             name: 'meta.paragraph.gularen',
-            begin: '^\\s*[A-Za-z0-9\\*_`=~\\^]',
-            while: '^\\s*[A-Za-z0-9\\*_`=~\\^]',
+            begin: '^\\s*[A-Za-z0-9\\*/_`=~\\^]',
+            while: '^\\s*[A-Za-z0-9\\*/_`=~\\^]',
             patterns: [
                 {
                     include: '#inline'
@@ -149,7 +135,10 @@ const document = {
                     include: '#italic'
                 },
                 {
-                    include: '#highlight'
+                    include: '#underlined'
+                },
+                {
+                    include: '#highlighted'
                 },
                 {
                     include: '#inlineCode'
@@ -179,12 +168,31 @@ const document = {
                     include: '#italic'
                 },
                 {
-                    include: '#highlight'
+                    include: '#underlined'
+                },
+                {
+                    include: '#highlighted'
                 }
             ]
         },
         italic: {
             name: 'markup.italic.gularen',
+            begin: '/',
+            end: '/',
+            patterns: [
+                {
+                    include: '#bold'
+                },
+                {
+                    include: '#underlined'
+                },
+                {
+                    include: '#highlighted'
+                }
+            ]
+        },
+        underlined: {
+            name: 'markup.underline.gularen',
             begin: '_',
             end: '_',
             patterns: [
@@ -192,12 +200,15 @@ const document = {
                     include: '#bold'
                 },
                 {
-                    include: '#highlight'
+                    include: '#italic'
+                },
+                {
+                    include: '#highlighted'
                 }
             ]
         },
-        highlight: {
-            name: 'markup.inline.highlight',
+        highlighted: {
+            name: 'markup.inline.highlighted',
             begin: '=',
             end: '=',
             patterns: [
@@ -206,6 +217,9 @@ const document = {
                 },
                 {
                     include: '#italic'
+                },
+                {
+                    include: '#underlined'
                 }
             ]
         },
@@ -215,9 +229,10 @@ const document = {
             begin: '`',
             end: '`'
         },
+
         break: {
             name: 'markup.deleted.diff',
-            match: '<{1,3}'
+            match: '<{2,3}'
         },
 
         datetime: {
