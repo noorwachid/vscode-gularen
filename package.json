@@ -2,7 +2,7 @@
   "name": "gularen",
   "displayName": "Gularen",
   "description": "Gularen markup language support for VS Code",
-  "version": "1.19.0",
+  "version": "1.20.0",
   "publisher": "nwachid",
   "repository": "https://github.com/noorwachid/vscode-gularen",
   "engines": {
