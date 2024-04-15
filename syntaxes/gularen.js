@@ -65,7 +65,7 @@ const document = {
         },
         admon: {
             name: 'entity.name.function.gularen',
-            match: '^\\s*<[A-Za-z][^>]+>'
+            match: '^\\s*//[^/]+//'
         },
         paragraph: {
             name: 'meta.paragraph.gularen',
@@ -237,7 +237,7 @@ const document = {
 
         datetime: {
             name: 'variable.other.readwrite.gularen',
-            match: '<\\d{4}-\\d{2}-\\d{2}( \\d{2}:\\d{2}(:\\d{2})?)?>'
+            match: '\\+\\d{4}-\\d{2}-\\d{2}( \\d{2}:\\d{2}(:\\d{2})?)?'
         },
 
         reference: {
