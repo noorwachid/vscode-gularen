@@ -65,7 +65,7 @@ const document = {
         },
         admon: {
             name: 'entity.name.function.gularen',
-            match: '^\\s*//[^/]+//'
+            match: '^\\s*\\+ [^:]+:?'
         },
         paragraph: {
             name: 'meta.paragraph.gularen',
