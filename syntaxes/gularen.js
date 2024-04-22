@@ -16,9 +16,6 @@ const document = {
                     include: '#heading'
                 },
                 {
-                    include: '#admon'
-                },
-                {
                     include: '#list'
                 },
                 {
@@ -62,10 +59,6 @@ const document = {
                     ]
                 }
             }
-        },
-        admon: {
-            name: 'entity.name.function.gularen',
-            match: '^\\s*\\+ [^:]+:?'
         },
         paragraph: {
             name: 'meta.paragraph.gularen',

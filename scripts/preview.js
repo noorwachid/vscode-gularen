@@ -121,21 +121,6 @@ function preview(context) {
 				parseKatex();
 			}
 		</script>
-
-		<script src="${toWebPath('library/emoji/script.js')}"></script>
-		<script>
-			function parseEmoji() {
-				document.querySelectorAll('.emoji').forEach(node => {
-					if (Emoji.database.hasOwnProperty(node.textContent)) {
-						node.textContent = Emoji.database[node.textContent];
-					}
-				});
-			}
-			addEventListener('gularentranspile', parseEmoji);
-			if (gularen.transpiled) {
-				parseEmoji();
-			}
-		</script>
 	`;
 
 	let changeEditorDisposable = vscode.window.onDidChangeActiveTextEditor(event => {
