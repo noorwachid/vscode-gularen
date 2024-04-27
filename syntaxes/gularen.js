@@ -131,9 +131,6 @@ const document = {
                     include: '#underlined'
                 },
                 {
-                    include: '#highlighted'
-                },
-                {
                     include: '#inlineCode'
                 },
                 {
@@ -163,9 +160,6 @@ const document = {
                 {
                     include: '#underlined'
                 },
-                {
-                    include: '#highlighted'
-                }
             ]
         },
         italic: {
@@ -179,9 +173,6 @@ const document = {
                 {
                     include: '#underlined'
                 },
-                {
-                    include: '#highlighted'
-                }
             ]
         },
         underlined: {
@@ -195,25 +186,6 @@ const document = {
                 {
                     include: '#italic'
                 },
-                {
-                    include: '#highlighted'
-                }
-            ]
-        },
-        highlighted: {
-            name: 'markup.inline.highlighted',
-            begin: '=',
-            end: '=',
-            patterns: [
-                {
-                    include: '#bold'
-                },
-                {
-                    include: '#italic'
-                },
-                {
-                    include: '#underlined'
-                }
             ]
         },
 
